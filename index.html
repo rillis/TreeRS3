@@ -95,7 +95,7 @@
       setTimeout(function() {
         for (const local of l){
           var temp = getCookie(local)
-          if !(!temp){
+          if (temp){
             document.getElementById("t"+local).innerHTML = temp;
             setCookie(local, temp-1)
           }
