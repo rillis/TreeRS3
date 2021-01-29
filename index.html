@@ -131,6 +131,20 @@
 
         function myClock() {
           var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
+          function getCookie(k) {
+            var c = String(document.cookie).split(";");
+            var neq = k + "=";
+            for (var i = 0; i < c.length; i++) {
+              var d = c[i];
+              while (d.charAt(0) === " ") {
+                c[i] = c[i].substring(1, d.length);
+              }
+              if (c[i].indexOf(neq) === 0) {
+                return decodeURIComponent(c[i].substring(neq.length, c[i].length));
+              }
+            }
+            return null;
+          }
           for (const local of l) {
             var temp = getCookie(local)
             if (temp) {
