@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <style>
+    .items {
+      width: 50vw
+    }
+
+    .teste {
+      background-color: red;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-weight: normal;
+      font-size: 20px;
+      display: inline;
+    }
+
+    .btn {
+      display: inline;
+      margin-left: 10px;
+    }
+
+    .local {
+      margin-top: 20px
+    }
+
+    .progress {
+      margin-top: 3px;
+      width: 700px
+    }
+
+    .progress-bar {
+      width: 0px
+    }
+  </style>
+
+
+  <script>
+    //metodos
+  </script>
+
+
+
+  <title>TreeRS3</title>
+</head>
+
+<body>
+  <div class="content d-flex justify-content-center align-items-center" style="height:100vh;width:100vw">
+    <div class="flex-column">
+      <h2> TreeRS3 </h2>
+      <hr class="my-4">
+      <input class="form-control" id="i_cookie" style="display:inline;width: 500px"></input>
+      <button class="btn btn-dark" style="display:inline" onclick="create();">Create</button>
+      <button class="btn btn-light" style="display:inline" onclick="search();">Search</button>
+
+      <br><br>
+      <span id="result">Resultado:</span>
+    </div>
+  </div>
+  <script>
+  function getCookie(k) {
+    var c = String(document.cookie).split(";");
+    var neq = k + "=";
+    for (var i = 0; i < c.length; i++) {
+      var d = c[i];
+      while (d.charAt(0) === " ") {
+        c[i] = c[i].substring(1, d.length);
+      }
+      if (c[i].indexOf(neq) === 0) {
+        return decodeURIComponent(c[i].substring(neq.length, c[i].length));
+      }
+    }
+    return null;
+  }
+
+  function setCookie(k, v, expira) {
+    var d = new Date();
+    d.setTime(d.getTime() + (expira * 60 * 1000));
+
+    document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
+  }
+
+  function create(){
+    var s = document.getElementById('i_cookie').value;
+    var x = s.split("=");
+
+    setCookie(x[0], x[1], 100)
+  }
+
+  function search(){
+    var s = document.getElementById('i_cookie').value;
+    document.getElementById('result').value = "Resultado: "+getCookie(s);
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+
+</html>
