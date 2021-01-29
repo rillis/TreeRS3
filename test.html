@@ -69,13 +69,11 @@
   </div>
   <script>
   function getCookie(name) {
-  return $.cookie("name");
-  document.getElementById('i_cookie').value="";
+  return localStorage.getItem(name);
 }
 
   function setCookie(k, v) {
-    $.cookie(k,v);
-    document.getElementById('i_cookie').value="";
+    localStorage.setItem(k,v);
   }
 
   function create(){
