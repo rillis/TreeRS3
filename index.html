@@ -68,6 +68,10 @@
       document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
     }
 
+    function deleteCookie(k){
+      document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    }
+
 
     var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
 
@@ -86,7 +90,7 @@
     }
 
     function reset(loc) {
-      alert("Reset " + loc);
+      deleteCookie(loc)
     }
 
 
