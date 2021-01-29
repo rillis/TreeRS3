@@ -147,38 +147,45 @@
       var milli = (new Date().getTime()) + (time * 60000);
 
       setLocalData(loc, milli);
-      setLocalData(loc+"_tree", time*60);
-      setLocalData(loc+"_not", false);
+      setLocalData(loc + "_tree", time * 60);
+      setLocalData(loc + "_not", false);
     }
 
     function reset(loc) {
       delLocalData(loc);
     }
 
+    function spawnNotification(titulo, corpo, icone) {
+      var opcoes = {
+        body: corpo,
+        icon: icone
+      }
+      var n = new Notification(titulo, opcoes);
+    }
 
     function myTimer() {
       for (const item of l) {
         var x = getLocalData(item);
-        var y = getLocalData(item+"_tree");
-        var z = getLocalData(item+"_not");
+        var y = getLocalData(item + "_tree");
+        var z = getLocalData(item + "_not");
         if (x) {
           var seconds = Math.floor((x - (new Date().getTime())) / 1000);
           if (seconds > 0) {
             document.getElementById("t" + item).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8);
 
-            var perc = Math.floor((1-(seconds/y))*100);
+            var perc = Math.floor((1 - (seconds / y)) * 100);
 
-            document.getElementById("p" + item).innerHTML = perc+"%";
-            document.getElementById("p" + item).style.width = perc+"%";
+            document.getElementById("p" + item).innerHTML = perc + "%";
+            document.getElementById("p" + item).style.width = perc + "%";
 
 
-          }else{
+          } else {
             document.getElementById("t" + item).innerHTML = "OK";
             document.getElementById("p" + item).innerHTML = "100%";
             document.getElementById("p" + item).style.width = "100%";
-            if (z=="false"){
-              var notification = new Notification("Tree grew: "+item);
-              setLocalData(item+"_not", true);
+            if (z == "false") {
+              spawnNotification("Árvore cresceu: "+item+"!","A árvore de "+item+" acabou de crescer após "+y+" minutos.","https://static.wikia.nocookie.net/runescape2/images/4/41/Mahogany_tree.png")
+              setLocalData(item + "_not", true);
             }
           }
         } else {
@@ -190,7 +197,7 @@
     }
 
     if (Notification.permission !== 'granted') {
-      Notification.requestPermission(function (permission) {});
+      Notification.requestPermission(function(permission) {});
     }
 
 
