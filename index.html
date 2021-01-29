@@ -167,23 +167,28 @@
   </div>
   <script>
     //loop checagem
-    async function myLoop() {
-      setTimeout(function() {
-        for (const local of l){
-          var temp = getCookie(local)
-          if (temp){
-            var seconds= Math.floor((temp-(new Date().getTime()))/1000);
-            document.getElementById("t"+local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
-          }else{
-            document.getElementById("t"+local).innerHTML = "00:00:00";
-          }
-          console.log(local+ " checado")
-        }
-        myLoop();
-      }, 1000)
-    }
+    var loadFunction = function(url) {
+       $.ajax({
+             url: url,
+             success: function myLoop() {
+               setTimeout(function() {
+                 for (const local of l){
+                   var temp = getCookie(local)
+                   if (temp){
+                     var seconds= Math.floor((temp-(new Date().getTime()))/1000);
+                     document.getElementById("t"+local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
+                   }else{
+                     document.getElementById("t"+local).innerHTML = "00:00:00";
+                   }
+                   console.log(local+ " checado")
+                 }
+                 myLoop();
+               }, 1000)
+             }
+       });
+    };
 
-    setTimeout(myLoop(), 0);
+    loadFunction('index.html');
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
