@@ -47,52 +47,7 @@
 
   <script>
     //metodos
-    function getCookie(k) {
-      var c = String(document.cookie).split(";");
-      var neq = k + "=";
-      for (var i = 0; i < c.length; i++) {
-        var d = c[i];
-        while (d.charAt(0) === " ") {
-          c[i] = c[i].substring(1, d.length);
-        }
-        if (c[i].indexOf(neq) === 0) {
-          return decodeURIComponent(c[i].substring(neq.length, c[i].length));
-        }
-      }
-      return null;
-    }
 
-    function setCookie(k, v, expira) {
-      var d = new Date();
-      d.setTime(d.getTime() + (expira * 60 * 1000));
-
-      document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
-    }
-
-    function deleteCookie(k){
-      document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    }
-
-
-    var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
-
-    var dict = {
-      'Willow': 280,
-      'Maple': 320,
-      'Yew': 400,
-      'Magic': 480
-    };
-
-    function start(loc) {
-      var arv = document.getElementById("sel").value;
-      var time = dict[arv];
-
-      setCookie(loc, (new Date().getTime())+(time*60000), time);
-    }
-
-    function reset(loc) {
-      deleteCookie(loc)
-    }
 
   </script>
 
@@ -118,7 +73,7 @@
       <hr class="my-4">
       <div class="local">
         <h3>Lumbridge</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('lumbridge')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('lumbridge')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="slumbridge">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rlumbridge">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="plumbridge">0%</div>
         </div>
@@ -126,7 +81,7 @@
       </div>
       <div class="local">
         <h3>Varrock</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('varrock')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('varrock')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="svarrock">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rvarrock">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pvarrock">0%</div>
         </div>
@@ -134,7 +89,7 @@
       </div>
       <div class="local">
         <h3>Falador</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('falador')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('falador')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="sfalador">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rfalador">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pfalador">0%</div>
         </div>
@@ -142,7 +97,7 @@
       </div>
       <div class="local">
         <h3>Taverley</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('taverley')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('taverley')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="staverley">Start</button> <button type="button" class="btn btn-warning btn-sm" id="staverley">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ptaverley">0%</div>
         </div>
@@ -150,7 +105,7 @@
       </div>
       <div class="local">
         <h3>Gnome Stronghold</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('gnome')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('gnome')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="sgnome">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rgnome">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pgnome">0%</div>
         </div>
@@ -158,7 +113,7 @@
       </div>
       <div class="local">
         <h3>Prifddinas</h3>
-        <button type="button" class="btn btn-success btn-sm" onclick="start('prifddinas')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="reset('prifddinas')">Reset</button>
+        <button type="button" class="btn btn-success btn-sm" id="sprifddinas">Start</button> <button type="button" class="btn btn-warning btn-sm" id="sprifddinas">Reset</button>
         <div class="progress">
           <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pprifddinas">0%</div>
         </div>
@@ -168,28 +123,80 @@
   </div>
   <script>
     //loop checagem
-    var loadFunction = function(url) {
-       $.ajax({
-             url: url,
-             success: function myLoop() {
-               setTimeout(function() {
-                 for (const local of l){
-                   var temp = getCookie(local)
-                   if (temp){
-                     var seconds= Math.floor((temp-(new Date().getTime()))/1000);
-                     document.getElementById("t"+local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
-                   }else{
-                     document.getElementById("t"+local).innerHTML = "00:00:00";
-                   }
-                   console.log(local+ " checado")
-                 }
-                 myLoop();
-               }, 1000)
-             }
-       });
-    };
+    function myLoop() {
+      setTimeout(function() {
+        function getCookie(k) {
+          var c = String(document.cookie).split(";");
+          var neq = k + "=";
+          for (var i = 0; i < c.length; i++) {
+            var d = c[i];
+            while (d.charAt(0) === " ") {
+              c[i] = c[i].substring(1, d.length);
+            }
+            if (c[i].indexOf(neq) === 0) {
+              return decodeURIComponent(c[i].substring(neq.length, c[i].length));
+            }
+          }
+          return null;
+        }
 
-    loadFunction('index.html');
+        function setCookie(k, v, expira) {
+          var d = new Date();
+          d.setTime(d.getTime() + (expira * 60 * 1000));
+
+          document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
+        }
+
+        function deleteCookie(k){
+          document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        }
+
+        var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
+
+        var dict = {
+          'Willow': 280,
+          'Maple': 320,
+          'Yew': 400,
+          'Magic': 480
+        };
+
+        for (const local of l){
+          var temp = getCookie(local)
+          if (temp){
+            var seconds= Math.floor((temp-(new Date().getTime()))/1000);
+            document.getElementById("t"+local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
+          }else{
+            document.getElementById("t"+local).innerHTML = "00:00:00";
+          }
+          console.log(local+ " checado")
+        }
+        //
+
+
+
+
+
+        function start(loc) {
+          var arv = document.getElementById("sel").value;
+          var time = dict[arv];
+
+          setCookie(loc, (new Date().getTime())+(time*60000), time);
+        }
+
+        function reset(loc) {
+          deleteCookie(loc)
+        }
+
+        for (const local of l){
+          document.getElementById("s"+local).addEventListener("click", start(local));
+          document.getElementById("r"+local).addEventListener("click", reset(local));
+        }
+
+        //
+        myLoop();
+      }, 1000)
+    }
+    myloop();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
