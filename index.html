@@ -82,7 +82,7 @@
       var arv = document.getElementById("sel").value;
       var time = dict[arv];
 
-      setCookie(loc, (new Date().getTime()+time)*60000, time);
+      setCookie(loc, (new Date().getTime())+(time*60000), time);
     }
 
     function reset(loc) {
@@ -98,7 +98,7 @@
           if (temp){
 
 
-            document.getElementById("t"+local).innerHTML = (temp-(new Date().getTime()))/1000;
+            document.getElementById("t"+local).innerHTML = Math.floor((temp-(new Date().getTime()))/1000);
           }
         }
         myLoop();
