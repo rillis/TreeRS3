@@ -164,7 +164,7 @@
           if (seconds > 0) {
             document.getElementById("t" + item).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8);
 
-            var perc = Math.floor((seconds/y)*100);
+            var perc = Math.floor((1-(seconds/y))*100);
 
             document.getElementById("p" + item).innerHTML = perc+"%";
             document.getElementById("p" + item).style.width = perc+"0%";
