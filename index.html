@@ -148,6 +148,7 @@
 
       setLocalData(loc, milli);
       setLocalData(loc+"_tree", time*60);
+      setLocalData(loc+"_not", false);
     }
 
     function reset(loc) {
@@ -159,6 +160,7 @@
       for (const item of l) {
         var x = getLocalData(item);
         var y = getLocalData(item+"_tree");
+        var z = getLocalData(item+"_not");
         if (x) {
           var seconds = Math.floor((x - (new Date().getTime())) / 1000);
           if (seconds > 0) {
@@ -174,6 +176,10 @@
             document.getElementById("t" + item).innerHTML = "OK";
             document.getElementById("p" + item).innerHTML = "100%";
             document.getElementById("p" + item).style.width = "100%";
+            if (!z){
+              var notification = new Notification("Tree grew: "+loc);
+              setLocalData(loc+"_not", true);
+            }
           }
         } else {
           document.getElementById("t" + item).innerHTML = "00:00:00";
@@ -182,6 +188,12 @@
         }
       }
     }
+
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission(function (permission) {});
+    }
+
+
     var myVar = setInterval(myTimer, 1000);
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
