@@ -155,9 +155,9 @@
 
 
     function myTimer() {
-      for each(var loc in l){
-        var x = getLocalData(loc);
-        console.log(loc+": "+x);
+      for (const item of l) {
+        var x = getLocalData(item);
+        console.log(item+": "+x);
       }
     }
     var myVar = setInterval(myTimer, 1000);
