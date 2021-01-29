@@ -72,7 +72,7 @@
     var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
 
     var dict = {
-      'Willow': 280,
+      'Willow': 1,
       'Maple': 320,
       'Yew': 400,
       'Magic': 480
@@ -99,6 +99,8 @@
 
 
             document.getElementById("t"+local).innerHTML = Math.floor((temp-(new Date().getTime()))/1000);
+          }else{
+            document.getElementById("t"+local).innerHTML = "00:00:00";
           }
         }
         myLoop();
