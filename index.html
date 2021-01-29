@@ -164,9 +164,9 @@
       var n = new Notification(titulo, opcoes);
     }
 
-    function playSound(url) {
-      const audio = new Audio(url);
-      audio.play();
+    function playSound(soundObj) {
+      var sound = document.getElementById(soundObj);
+      sound.Play();
     }
 
     function myTimer() {
@@ -191,7 +191,7 @@
             document.getElementById("p" + item).style.width = "100%";
             if (z == "false") {
               spawnNotification("Árvore cresceu: " + item + "!", "A árvore de " + item + " acabou de crescer após " + (y / 60) + " minutos.", "https://static.wikia.nocookie.net/runescape2/images/4/41/Mahogany_tree.png")
-              playSound("https://proxy.notificationsounds.com/message-tones/juntos-607/download/file-sounds-1148-juntos.mp3");
+              playSound("notify");
               setLocalData(item + "_not", true);
             }
           }
@@ -211,6 +211,7 @@
     var myVar = setInterval(myTimer, 1000);
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <embed src="https://proxy.notificationsounds.com/message-tones/juntos-607/download/file-sounds-1148-juntos.mp3" autostart="false" width="0" height="0" id="notify" enablejavascript="true">
 </body>
 
 </html>
