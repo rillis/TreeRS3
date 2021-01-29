@@ -126,45 +126,6 @@
       var myTimer;
 
       function start() {
-        //GET COOKIE
-        function getCookie(k) {
-          var c = String(document.cookie).split(";");
-          var neq = k + "=";
-          for (var i = 0; i < c.length; i++) {
-            var d = c[i];
-            while (d.charAt(0) === " ") {
-              c[i] = c[i].substring(1, d.length);
-            }
-            if (c[i].indexOf(neq) === 0) {
-              return decodeURIComponent(c[i].substring(neq.length, c[i].length));
-            }
-          }
-          return null;
-        }
-
-        //SET COOKIE
-        function setCookie(k, v, expira) {
-          var d = new Date();
-          d.setTime(d.getTime() + (expira * 60 * 1000));
-
-          document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
-        }
-
-        //DELETE COOKIE
-        function deleteCookie(k) {
-          document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        }
-
-        var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
-
-        var dict = {
-          'Willow': 280,
-          'Maple': 320,
-          'Yew': 400,
-          'Magic': 480
-        };
-
-
         //LOOP
         myTimer = setInterval(myClock, 1000);
 
@@ -189,6 +150,41 @@
       }
 
       function st(loc) {
+        //GET COOKIE
+        function getCookie(k) {
+          var c = String(document.cookie).split(";");
+          var neq = k + "=";
+          for (var i = 0; i < c.length; i++) {
+            var d = c[i];
+            while (d.charAt(0) === " ") {
+              c[i] = c[i].substring(1, d.length);
+            }
+            if (c[i].indexOf(neq) === 0) {
+              return decodeURIComponent(c[i].substring(neq.length, c[i].length));
+            }
+          }
+          return null;
+        }
+
+        //SET COOKIE
+        function setCookie(k, v, expira) {
+          var d = new Date();
+          d.setTime(d.getTime() + (expira * 60 * 1000));
+
+          document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
+        }
+
+
+
+        var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
+
+        var dict = {
+          'Willow': 280,
+          'Maple': 320,
+          'Yew': 400,
+          'Magic': 480
+        };
+
           var arv = document.getElementById("sel").value;
           var time = dict[arv];
 
@@ -196,6 +192,10 @@
       }
 
       function rs(loc) {
+        //DELETE COOKIE
+        function deleteCookie(k) {
+          document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        }
           deleteCookie(loc)
       }
 
