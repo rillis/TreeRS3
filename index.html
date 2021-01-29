@@ -177,8 +177,8 @@
             document.getElementById("p" + item).innerHTML = "100%";
             document.getElementById("p" + item).style.width = "100%";
             if (z=="false"){
-              var notification = new Notification("Tree grew: "+loc);
-              setLocalData(loc+"_not", true);
+              var notification = new Notification("Tree grew: "+item);
+              setLocalData(item+"_not", true);
             }
           }
         } else {
