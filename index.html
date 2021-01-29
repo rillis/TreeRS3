@@ -63,7 +63,7 @@
 
     function setCookie(k, v, expira) {
       var d = new Date();
-      d.setTime(d.getTime() + (expira * 1000));
+      d.setTime(d.getTime() + (expira * 60 * 1000));
 
       document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
     }
@@ -82,7 +82,7 @@
       var arv = document.getElementById("sel").value;
       var time = dict[arv];
 
-      setCookie(loc, time);
+      setCookie(loc, (new Date().getTime()+time)*60000, time);
     }
 
     function reset(loc) {
@@ -96,8 +96,9 @@
         for (const local of l){
           var temp = getCookie(local)
           if (temp){
-            document.getElementById("t"+local).innerHTML = temp;
-            setCookie(local, temp-1)
+
+
+            document.getElementById("t"+local).innerHTML = (temp-(new Date().getTime()))/1000;
           }
         }
         myLoop();
