@@ -72,7 +72,7 @@
     var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
 
     var dict = {
-      'Willow': 1,
+      'Willow': 280,
       'Maple': 320,
       'Yew': 400,
       'Magic': 480
@@ -96,9 +96,8 @@
         for (const local of l){
           var temp = getCookie(local)
           if (temp){
-
-
-            document.getElementById("t"+local).innerHTML = Math.floor((temp-(new Date().getTime()))/1000);
+            var seconds= Math.floor((temp-(new Date().getTime()))/1000);
+            document.getElementById("t"+local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
           }else{
             document.getElementById("t"+local).innerHTML = "00:00:00";
           }
