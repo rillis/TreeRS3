@@ -157,11 +157,8 @@
     function myTimer() {
       for(const loc in l){
         var x = getLocalData(loc);
-        if (x){
-          console.log(loc+": "+x);
-        }
+        console.log(loc+": "+x);
       }
-      console.log("a");
     }
     var myVar = setInterval(myTimer, 1000);
 
