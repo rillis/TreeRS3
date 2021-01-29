@@ -123,7 +123,7 @@
     var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
 
     var dict = {
-      'Willow': 280,
+      'Willow': 3,
       'Maple': 320,
       'Yew': 400,
       'Magic': 480
@@ -147,6 +147,7 @@
       var milli = (new Date().getTime()) + (time * 60000);
 
       setLocalData(loc, milli);
+      setLocalData(loc+"_tree", time*60);
     }
 
     function reset(loc) {
@@ -157,15 +158,27 @@
     function myTimer() {
       for (const item of l) {
         var x = getLocalData(item);
+        var y = getLocalData(item+"_tree");
         if (x) {
           var seconds = Math.floor((x - (new Date().getTime())) / 1000);
           if (seconds > 0) {
-            document.getElementById("t" + item).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
+            document.getElementById("t" + item).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8);
+
+            var perc = math.floor((seconds/y)*100);
+
+            document.getElementById("p" + item).innerHTML = perc+"%";
+            document.getElementById("p" + item).style.width = perc+"0%";
+
+
           }else{
             document.getElementById("t" + item).innerHTML = "00:00:00";
+            document.getElementById("p" + item).innerHTML = "0%";
+            document.getElementById("p" + item).style.width = "0%";
           }
         } else {
           document.getElementById("t" + item).innerHTML = "00:00:00";
+          document.getElementById("p" + item).innerHTML = "0%";
+          document.getElementById("p" + item).style.width = "0%";
         }
       }
     }
