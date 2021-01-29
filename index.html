@@ -144,14 +144,25 @@
     function start(loc) {
       var arv = document.getElementById('sel').value;
       var time = dict[arv];
-      var milli = (new Date().getTime()) + (time*60000);
+      var milli = (new Date().getTime()) + (time * 60000);
 
       setLocalData(loc, milli);
     }
 
-    function reset(loc){
+    function reset(loc) {
       delLocalData(loc);
     }
+
+
+    function myTimer() {
+      for(const loc in l){
+        var x = getLocalData(loc);
+        if (x){
+          console.debug(loc+": "+x);
+        }
+      }
+    }
+    var myVar = setInterval(myTimer, 1000);
 
 
   </script>
