@@ -160,12 +160,12 @@
         if (x) {
           var seconds = Math.floor((x - (new Date().getTime())) / 1000);
           if (seconds > 0) {
-            document.getElementById("t" + local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
+            document.getElementById("t" + item).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
           }else{
-            document.getElementById("t" + local).innerHTML = "00:00:00";
+            document.getElementById("t" + item).innerHTML = "00:00:00";
           }
         } else {
-          document.getElementById("t" + local).innerHTML = "00:00:00";
+          document.getElementById("t" + item).innerHTML = "00:00:00";
         }
       }
     }
