@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <style>
+    .items {
+      width: 50vw
+    }
+
+    .teste {
+      background-color: red;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-weight: normal;
+      font-size: 20px;
+      display: inline;
+    }
+
+    .btn {
+      display: inline;
+      margin-left: 10px;
+    }
+
+    .local {
+      margin-top: 20px
+    }
+
+    .progress {
+      margin-top: 3px;
+      width: 700px
+    }
+
+    .progress-bar {
+      width: 0px
+    }
+  </style>
+
+
+  <script>
+    //metodos
+  </script>
+
+
+
+  <title>TreeRS3</title>
+</head>
+
+<body>
+  <div class="content d-flex justify-content-center align-items-center" style="height:100vh;width:100vw">
+    <div class="flex-column">
+      <h2> TreeRS3 </h2>
+      <hr class="my-4">
+      <div class="local">
+        <label for="exampleFormControlSelect1">Árvore</label>
+        <select class="form-control" id="sel">
+          <option>Willow</option>
+          <option>Maple</option>
+          <option>Yew</option>
+          <option>Magic</option>
+        </select>
+      </div>
+      <hr class="my-4">
+      <div class="local">
+        <h3>Lumbridge</h3>
+        <button type="button" class="btn btn-success btn-sm" onclick="myTimerObj.st('lumbridge')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="myTimerObj.rs('lumbridge')">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="plumbridge">0%</div>
+        </div>
+        <span class="tempo" id="tlumbridge">00:00:00</span>
+      </div>
+      <div class="local">
+        <h3>Varrock</h3>
+        <button type="button" class="btn btn-success btn-sm" onclick="myTimerObj.st('varrock')">Start</button> <button type="button" class="btn btn-warning btn-sm" onclick="myTimerObj.rs('varrock')">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pvarrock">0%</div>
+        </div>
+        <span class="tempo" id="tvarrock">00:00:00</span>
+      </div>
+      <div class="local">
+        <h3>Falador</h3>
+        <button type="button" class="btn btn-success btn-sm" id="sfalador">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rfalador">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pfalador">0%</div>
+        </div>
+        <span class="tempo" id="tfalador">00:00:00</span>
+      </div>
+      <div class="local">
+        <h3>Taverley</h3>
+        <button type="button" class="btn btn-success btn-sm" id="staverley">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rtaverley">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="ptaverley">0%</div>
+        </div>
+        <span class="tempo" id="ttaverley">00:00:00</span>
+      </div>
+      <div class="local">
+        <h3>Gnome Stronghold</h3>
+        <button type="button" class="btn btn-success btn-sm" id="sgnome">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rgnome">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pgnome">0%</div>
+        </div>
+        <span class="tempo" id="tgnome">00:00:00</span>
+      </div>
+      <div class="local">
+        <h3>Prifddinas</h3>
+        <button type="button" class="btn btn-success btn-sm" id="sprifddinas">Start</button> <button type="button" class="btn btn-warning btn-sm" id="rprifddinas">Reset</button>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="pprifddinas">0%</div>
+        </div>
+        <span class="tempo" id="tprifddinas">00:00:00</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    //loop checagem
+    var myTimerObj = (function(document) {
+
+      var myTimer;
+
+      function start() {
+        //GET COOKIE
+        function getCookie(k) {
+          var c = String(document.cookie).split(";");
+          var neq = k + "=";
+          for (var i = 0; i < c.length; i++) {
+            var d = c[i];
+            while (d.charAt(0) === " ") {
+              c[i] = c[i].substring(1, d.length);
+            }
+            if (c[i].indexOf(neq) === 0) {
+              return decodeURIComponent(c[i].substring(neq.length, c[i].length));
+            }
+          }
+          return null;
+        }
+
+        //SET COOKIE
+        function setCookie(k, v, expira) {
+          var d = new Date();
+          d.setTime(d.getTime() + (expira * 60 * 1000));
+
+          document.cookie = encodeURIComponent(k) + "=" + encodeURIComponent(v) + "; expires=" + d.toUTCString();
+        }
+
+        //DELETE COOKIE
+        function deleteCookie(k) {
+          document.cookie = encodeURIComponent(k) + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        }
+
+        var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
+
+        var dict = {
+          'Willow': 280,
+          'Maple': 320,
+          'Yew': 400,
+          'Magic': 480
+        };
+
+
+        //LOOP
+        myTimer = setInterval(myClock, 1000);
+
+        function myClock() {
+
+          for (const local of l) {
+            var temp = getCookie(local)
+            if (temp) {
+              var seconds = Math.floor((temp - (new Date().getTime())) / 1000);
+              document.getElementById("t" + local).innerHTML = new Date(seconds * 1000).toISOString().substr(11, 8)
+            } else {
+              document.getElementById("t" + local).innerHTML = "00:00:00";
+            }
+            console.log(local + " checado")
+          }
+
+        }
+      }
+
+      function end() {
+        clearInterval(myTimer)
+      }
+
+      function st(loc) {
+          var arv = document.getElementById("sel").value;
+          var time = dict[arv];
+
+          setCookie(loc, (new Date().getTime())+(time*60000), time);
+      }
+
+      function rs(loc) {
+          deleteCookie(loc)
+      }
+
+      return {
+        start: start,
+        st: st,
+        rs: rs,
+        end: end
+      };
+    })(document);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+
+</html>
