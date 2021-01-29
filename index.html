@@ -123,8 +123,8 @@
     var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
 
     var dict = {
-      'Willow': 2,
-      'Maple': 320,
+      'Willow': 1, //280
+      'Maple': 2, //320
       'Yew': 400,
       'Magic': 480
     };
@@ -176,7 +176,7 @@
             document.getElementById("t" + item).innerHTML = "OK";
             document.getElementById("p" + item).innerHTML = "100%";
             document.getElementById("p" + item).style.width = "100%";
-            if (!z){
+            if (z=="false"){
               var notification = new Notification("Tree grew: "+loc);
               setLocalData(loc+"_not", true);
             }
