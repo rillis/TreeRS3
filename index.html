@@ -130,7 +130,7 @@
         myTimer = setInterval(myClock, 1000);
 
         function myClock() {
-
+          var l = ['lumbridge', 'varrock', 'gnome', 'taverley', 'prifddinas', 'falador'];
           for (const local of l) {
             var temp = getCookie(local)
             if (temp) {
